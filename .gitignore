@@ -1,0 +1,22 @@
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+venv/
+.env
+
+# Large dataset binary vectors (>100MB, fetched on demand via scripts)
+data/
+*.fvecs
+*.ivecs
+
+# Large serialized graph indexes (>100MB, reconstructed via build scripts)
+*.pkl
+
+# OS & IDE metadata
+.vscode/
+.idea/
+.gemini/
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,94 @@
+================================================================================
+ARXIV-LARGE FANNS RESOURCE-AWARE PILOT BENCHMARK
+Timestamp: 2026-10-24 22:01:03
+Output Directory: C:\Users\anime\Desktop\filtered-ann-research-large\research_audit\arxiv_large_pilot
+================================================================================
+
+############################################################
+RUN 1: DATA SMOKE TEST & INTEGRITY VALIDATION
+############################################################
+[1.1] Database Vectors: Shape = (10000, 4096), Dtype = float32
+[1.2] Query Vectors:    Shape = (50, 4096), Dtype = float32
+[1.3] Metadata Records: Count = 10000
+[1.4] L2 Norms sample: Mean = 1.0000, Std = 0.000000
+[1.5] MetadataIndex constructed in 0.026s across 10000 records
+      Workload EM    : Mean Selectivity =  35.73%, Min =  0.49%, Max =  63.88%, Mean Candidates = 3572.7
+      Workload Range : Mean Selectivity =  22.82%, Min =  0.13%, Max =  73.37%, Mean Candidates = 2282.1
+      Workload EMIS  : Mean Selectivity =  10.75%, Min =  0.98%, Max =  24.95%, Mean Candidates = 1074.7
+[RUN 1 SUCCESS] Data smoke test completed cleanly in 0.31s.
+
+############################################################
+RUN 2: ONE-INDEX HNSW CONSTRUCTION & DIAGNOSTIC SMOKE TEST
+############################################################
+Building HNSW index on 10000 vectors (M=16, efConstruction=50)...
+[2.1] Index Construction Complete: 118.33 seconds (1.97 minutes)
+[2.2] RSS RAM: Before = 138.7 MB, After = 294.9 MB (Delta: 156.2 MB)
+[2.3] Graph Stats: Enter Point = 2902, Max Layer = 4, Num Nodes = 10000
+[2.4] Serialized Index saved: hnsw_pilot_index.pkl (157.32 MB)
+[2.5] Running 5-query diagnostic smoke test...
+      Query 0: Cand Count = 2564, GT Count = 10, InGraph Count = 10, Recall@10 = 1.00
+      Query 1: Cand Count = 2564, GT Count = 10, InGraph Count = 10, Recall@10 = 1.00
+      Query 2: Cand Count = 2564, GT Count = 10, InGraph Count = 10, Recall@10 = 1.00
+      Query 3: Cand Count = 6388, GT Count = 10, InGraph Count = 10, Recall@10 = 1.00
+      Query 4: Cand Count = 6388, GT Count = 10, InGraph Count = 10, Recall@10 = 0.80
+[RUN 2 SUCCESS] One-index smoke test passed cleanly with 100% predicate compliance.
+
+############################################################
+RUN 3: CONTROLLED BENCHMARK (50 QUERIES x 3 WORKLOADS x 5 METHODS)
+############################################################
+Executing warmup runs...
+Beginning controlled query evaluation...
+
+--- Evaluating Workload: EM (50 queries) ---
+
+--- Evaluating Workload: Range (50 queries) ---
+
+--- Evaluating Workload: EMIS (50 queries) ---
+
+[BENCHMARK COMPLETE] 750 query evaluations executed in 24.69s (0.41 min)
+[SAVED] Raw records saved to pilot_raw_results.csv (750 rows)
+[SAVED] Summary table saved to pilot_summary.csv
+
+==========================================================================================
+PILOT BENCHMARK SUMMARY TABLE
+==========================================================================================
+Method               Workload Recall@10  Mean Lat(ms)   P95 Lat(ms)  QPS      Selectivity 
+------------------------------------------------------------------------------------------
+AdaptiveRouter_2pct  EM       0.9760     25.99          70.49        38.5     35.73      %
+AdaptiveRouter_2pct  EMIS     0.9520     30.45          102.31       32.8     10.75      %
+AdaptiveRouter_2pct  Range    0.9680     44.33          95.67        22.6     22.82      %
+ExactSearch          EM       1.0000     56.48          114.72       17.7     35.73      %
+ExactSearch          EMIS     1.0000     11.47          27.34        87.2     10.75      %
+ExactSearch          Range    1.0000     37.13          115.25       26.9     22.82      %
+HNSW_PostFilter      EM       0.3820     10.33          14.76        96.8     35.73      %
+HNSW_PostFilter      EMIS     0.2860     4.92           7.64         203.2    10.75      %
+HNSW_PostFilter      Range    0.0600     9.46           13.67        105.7    22.82      %
+InGraphFilter        EM       0.9760     31.70          116.52       31.5     35.73      %
+InGraphFilter        EMIS     0.9500     38.33          118.25       26.1     10.75      %
+InGraphFilter        Range    0.9660     88.40          345.83       11.3     22.82      %
+PreFilter            EM       1.0000     55.05          116.37       18.2     35.73      %
+PreFilter            EMIS     1.0000     11.30          25.95        88.5     10.75      %
+PreFilter            Range    1.0000     36.93          117.10       27.1     22.82      %
+==========================================================================================
+
+############################################################
+PHASE E: SYSTEMATIC VALIDATION AUDIT
+############################################################
+Check 1: Exact completed queries per method (150 each) -> PASS ({'AdaptiveRouter_2pct': 150, 'ExactSearch': 150, 'HNSW_PostFilter': 150, 'InGraphFilter': 150, 'PreFilter': 150})
+Check 2: Identical query IDs across methods -> PASS
+Check 3: Recall fidelity (Exact & PreFilter = 1.0, bounded [0,1]) -> PASS
+Check 4: Predicate compliance (0 violations) -> PASS (violations: 0)
+Check 5: Latency finite & positive -> PASS
+Check 6: Index build time separated from query latency -> PASS
+Check 7: Zero query failures or timeouts -> PASS
+Check 8: Summary recomputability verified -> PASS
+Check 9: np.memmap utilized for dataset vectors -> PASS
+Check 10: Explicitly distinguished as 10K subset pilot -> PASS
+[SAVED] Systematic validation report saved to pilot_validation.json
+
+[PLOTTING] Generating presentation figures...
+[SAVED] Presentation figure saved to pilot_tradeoffs.png
+
+================================================================================
+PILOT EXECUTION COMPLETE WITH 100% VALIDATION PASS
+================================================================================

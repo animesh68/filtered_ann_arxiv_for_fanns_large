@@ -1,0 +1,49 @@
+
+================================================================================
+STARTING 100,000-VECTOR SCALING CHECKPOINT EXECUTION
+Timestamp: 2026-10-24 22:56:53
+================================================================================
+[RESOURCES PRE-RUN] Free System RAM: 1029.1 MB, Process RSS: 101.6 MB
+[DATA LOADED] DB Vectors: (100000, 4096), Attributes: 100000, Queries: 25
+              Load elapsed: 1.06s
+[META INDEX] Constructed in 0.139s for 100000 docs
+[HNSW BUILD] Constructing graph on 100,000 vectors (M=16, efC=50)...
+[HNSW COMPLETE] Build Time: 670.08s (11.17 min)
+                Post-Build RSS: 1715.4 MB (Delta: 1613.8 MB)
+                Graph Stats: Enter Point = 2902, Max Layer = 4
+[INDEX SAVED] hnsw_index_100k.pkl (1574.73 MB)
+[SMOKE TEST] Running 5-query validation check...
+  Q0: Cand Count = 26528 , GT = 10, InGraph Recall@10 = 1.00
+  Q1: Cand Count = 26528 , GT = 10, InGraph Recall@10 = 1.00
+  Q2: Cand Count = 26528 , GT = 10, InGraph Recall@10 = 1.00
+  Q3: Cand Count = 63213 , GT = 10, InGraph Recall@10 = 1.00
+  Q4: Cand Count = 63213 , GT = 10, InGraph Recall@10 = 0.90
+[SMOKE TEST PASSED] 100% Predicate compliance verified.
+[BENCHMARK] Evaluating 25 queries x 3 workloads x 5 methods...
+[BENCHMARK COMPLETE] 375 queries executed in 38.89s
+[RESOURCE STATS] Peak RSS: 1720.0 MB, Free System RAM Remaining: 514.0 MB
+
+[CONSOLIDATING] Creating unified multi-checkpoint datasets (10K, 25K, 50K, 100K)...
+[SAVED] scaling_raw_results_updated.csv (1500 total method-query records)
+[SAVED] scaling_summary_updated.csv
+[SAVED] resource_measurements_updated.csv
+
+===============================================================================================
+SUMMARY FOR CHECKPOINT N = 100,000
+===============================================================================================
+AdaptiveRouter_2pct  EM       Recall: 0.9400   Latency: 18.67    ms (P95: 60.87    ms) QPS: 53.6   [Pre:0, IG:25]
+AdaptiveRouter_2pct  EMIS     Recall: 0.9560   Latency: 76.86    ms (P95: 260.51   ms) QPS: 13.0   [Pre:4, IG:21]
+AdaptiveRouter_2pct  Range    Recall: 0.9320   Latency: 47.69    ms (P95: 161.10   ms) QPS: 21.0   [Pre:3, IG:22]
+ExactSearch          EM       Recall: 1.0000   Latency: 245.35   ms (P95: 476.82   ms) QPS: 4.1   
+ExactSearch          EMIS     Recall: 1.0000   Latency: 83.27    ms (P95: 209.02   ms) QPS: 12.0  
+ExactSearch          Range    Recall: 1.0000   Latency: 253.27   ms (P95: 725.88   ms) QPS: 3.9   
+HNSW_PostFilter      EM       Recall: 0.3240   Latency: 7.76     ms (P95: 17.61    ms) QPS: 128.9 
+HNSW_PostFilter      EMIS     Recall: 0.2760   Latency: 5.25     ms (P95: 6.57     ms) QPS: 190.5 
+HNSW_PostFilter      Range    Recall: 0.1720   Latency: 7.16     ms (P95: 10.91    ms) QPS: 139.7 
+InGraphFilter        EM       Recall: 0.9400   Latency: 25.96    ms (P95: 78.06    ms) QPS: 38.5  
+InGraphFilter        EMIS     Recall: 0.9440   Latency: 90.88    ms (P95: 272.87   ms) QPS: 11.0  
+InGraphFilter        Range    Recall: 0.9240   Latency: 115.74   ms (P95: 259.39   ms) QPS: 8.6   
+PreFilter            EM       Recall: 1.0000   Latency: 243.77   ms (P95: 484.56   ms) QPS: 4.1   
+PreFilter            EMIS     Recall: 1.0000   Latency: 80.07    ms (P95: 192.36   ms) QPS: 12.5  
+PreFilter            Range    Recall: 1.0000   Latency: 251.83   ms (P95: 795.98   ms) QPS: 4.0   
+===============================================================================================

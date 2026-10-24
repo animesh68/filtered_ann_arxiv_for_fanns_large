@@ -1,0 +1,46 @@
+{
+  "experiment_name": "arxiv_large_scaling",
+  "dataset": {
+    "source_id": "SPCL/arxiv-for-fanns-large",
+    "full_database_vectors": 2735264,
+    "evaluated_checkpoints": [10000, 25000, 50000],
+    "largest_safe_checkpoint": 50000,
+    "dimension": 4096,
+    "dtype": "float32",
+    "metric": "l2",
+    "workloads": ["EM", "Range", "EMIS"]
+  },
+  "query_selection": {
+    "num_queries_per_workload": 25,
+    "query_ids_range": [0, 24],
+    "k": 10
+  },
+  "hnsw_parameters": {
+    "M": 16,
+    "ef_construction": 50,
+    "ef_search": 50,
+    "random_seed": 42
+  },
+  "methods": [
+    "ExactSearch",
+    "HNSW_PostFilter",
+    "InGraphFilter",
+    "PreFilter",
+    "AdaptiveRouter_2pct"
+  ],
+  "adaptive_router": {
+    "threshold": 0.02
+  },
+  "hardware": {
+    "cpu": "AMD Ryzen 3 5300U with Radeon Graphics",
+    "cores": 4,
+    "logical_processors": 8,
+    "total_visible_ram_gb": 7.33,
+    "initial_free_ram_gb": 1.13,
+    "os": "Windows 11"
+  },
+  "safety_boundaries": {
+    "stopping_checkpoint": 50000,
+    "reason_for_stopping": "Peak RSS at 50K reached 1,023.2 MB (~1.02 GB) with 897.7 MB free RAM remaining. 100K would require ~1.8 GB (triggering heavy paging), 250K would require ~5.5 GB (consuming >75% of visible RAM), and 500K raw vectors alone (8.19 GB) exceed total laptop physical RAM (7.33 GB)."
+  }
+}

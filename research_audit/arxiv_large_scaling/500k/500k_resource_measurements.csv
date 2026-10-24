@@ -1,0 +1,6 @@
+dataset_size,status,measurement_type,raw_vector_file_mb,index_build_time_s,index_file_size_mb,peak_rss_mb,ram_delta_mb,free_ram_start_mb,free_ram_end_mb,query_benchmark_time_s,num_queries,notes
+10000,COMPLETED,MEASURED,163.88,118.33,157.32,294.93,156.2,1510.0,1450.0,24.69,750,Completed pilot benchmark
+25000,COMPLETED,MEASURED,390.72,242.81,393.30,458.09,356.4,712.84,743.40,17.51,375,Completed scaling checkpoint
+50000,COMPLETED,MEASURED,781.44,546.96,786.61,1023.21,921.99,1310.80,897.71,28.41,375,Completed scaling checkpoint
+100000,COMPLETED,MEASURED,1562.88,670.08,1574.73,1720.00,1618.38,1029.09,514.03,38.89,375,Completed scaling checkpoint (available RAM dropped to 514MB)
+500000,STOPPED_SAFETY_LIMIT,PROJECTED,8194.00,3819.00,7874.50,7294.40,5574.40,1791.90,-5502.50,N/A,0,GATED: Estimated 7.29GB RSS exceeds available RAM (1.75GB); total commit exceeds 85% safety limit; continuous SSD thrashing guaranteed

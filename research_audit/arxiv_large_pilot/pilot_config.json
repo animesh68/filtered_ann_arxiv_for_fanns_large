@@ -1,0 +1,40 @@
+{
+  "experiment_name": "arxiv_large_pilot",
+  "dataset": {
+    "source_id": "SPCL/arxiv-for-fanns-large",
+    "full_database_vectors": 2735264,
+    "pilot_database_vectors": 10000,
+    "dimension": 4096,
+    "dtype": "float32",
+    "metric": "l2",
+    "workloads": ["EM", "Range", "EMIS"]
+  },
+  "query_selection": {
+    "num_queries_per_workload": 50,
+    "query_ids_range": [0, 49],
+    "k": 10
+  },
+  "hnsw_parameters": {
+    "M": 16,
+    "ef_construction": 50,
+    "ef_search": 50,
+    "random_seed": 42
+  },
+  "methods": [
+    "ExactSearch",
+    "HNSW_PostFilter",
+    "InGraphFilter",
+    "PreFilter",
+    "AdaptiveRouter_2pct"
+  ],
+  "adaptive_router": {
+    "threshold": 0.02
+  },
+  "hardware": {
+    "cpu": "AMD Ryzen 3 5300U with Radeon Graphics",
+    "cores": 4,
+    "logical_processors": 8,
+    "total_visible_ram_gb": 7.33,
+    "os": "Windows 11"
+  }
+}

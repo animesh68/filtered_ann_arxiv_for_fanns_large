@@ -1,0 +1,88 @@
+
+================================================================================
+EXECUTING SCALING CHECKPOINT: N = 25,000 VECTORS
+Timestamp: 2026-10-24 22:16:16
+================================================================================
+[RESOURCES PRE-RUN] Free System RAM: 712.8 MB, Process RSS: 101.7 MB
+[DATA LOADED] DB Vectors: (25000, 4096), Attributes: 25000, Queries: 25
+              Load elapsed: 0.32s
+[META INDEX] Constructed in 0.037s for 25000 docs
+[HNSW BUILD] Constructing graph on 25,000 vectors (M=16, efC=50)...
+[HNSW COMPLETE] Build Time: 242.81s (4.05 min)
+                Post-Build RSS: 458.1 MB (Delta: 356.4 MB)
+                Graph Stats: Enter Point = 2902, Max Layer = 4
+[INDEX SAVED] hnsw_index_25k.pkl (393.30 MB)
+[SMOKE TEST] Running 5-query validation check...
+  Q0: Cand Count = 6424 , GT = 10, InGraph Recall@10 = 1.00
+  Q1: Cand Count = 6424 , GT = 10, InGraph Recall@10 = 1.00
+  Q2: Cand Count = 6424 , GT = 10, InGraph Recall@10 = 1.00
+  Q3: Cand Count = 16017, GT = 10, InGraph Recall@10 = 1.00
+  Q4: Cand Count = 16017, GT = 10, InGraph Recall@10 = 0.70
+[SMOKE TEST PASSED] 100% Predicate compliance verified.
+[BENCHMARK] Evaluating 25 queries x 3 workloads x 5 methods...
+[BENCHMARK COMPLETE] 375 queries executed in 17.51s
+[RESOURCE STATS] Peak RSS: 458.1 MB, Free System RAM Remaining: 743.4 MB
+
+==========================================================================================
+SUMMARY FOR CHECKPOINT N = 25,000
+==========================================================================================
+AdaptiveRouter_2pct  EM       Recall: 0.9720   Latency: 29.67   ms (P95: 96.24   ms) QPS: 33.7  
+AdaptiveRouter_2pct  EMIS     Recall: 0.9600   Latency: 76.14   ms (P95: 299.63  ms) QPS: 13.1  
+AdaptiveRouter_2pct  Range    Recall: 0.9680   Latency: 43.53   ms (P95: 132.19  ms) QPS: 23.0  
+ExactSearch          EM       Recall: 1.0000   Latency: 77.79   ms (P95: 161.57  ms) QPS: 12.9  
+ExactSearch          EMIS     Recall: 1.0000   Latency: 23.94   ms (P95: 58.44   ms) QPS: 41.8  
+ExactSearch          Range    Recall: 1.0000   Latency: 58.15   ms (P95: 192.87  ms) QPS: 17.2  
+HNSW_PostFilter      EM       Recall: 0.3560   Latency: 8.24    ms (P95: 13.40   ms) QPS: 121.4 
+HNSW_PostFilter      EMIS     Recall: 0.2760   Latency: 7.49    ms (P95: 9.79    ms) QPS: 133.5 
+HNSW_PostFilter      Range    Recall: 0.0720   Latency: 7.71    ms (P95: 11.98   ms) QPS: 129.7 
+InGraphFilter        EM       Recall: 0.9720   Latency: 26.86   ms (P95: 76.89   ms) QPS: 37.2  
+InGraphFilter        EMIS     Recall: 0.9520   Latency: 89.02   ms (P95: 295.75  ms) QPS: 11.2  
+InGraphFilter        Range    Recall: 0.9680   Latency: 93.11   ms (P95: 225.00  ms) QPS: 10.7  
+PreFilter            EM       Recall: 1.0000   Latency: 76.60   ms (P95: 155.87  ms) QPS: 13.1  
+PreFilter            EMIS     Recall: 1.0000   Latency: 23.65   ms (P95: 56.90   ms) QPS: 42.3  
+PreFilter            Range    Recall: 1.0000   Latency: 56.41   ms (P95: 168.74  ms) QPS: 17.7  
+==========================================================================================
+
+================================================================================
+EXECUTING SCALING CHECKPOINT: N = 50,000 VECTORS
+Timestamp: 2026-10-24 22:22:37
+================================================================================
+[RESOURCES PRE-RUN] Free System RAM: 1310.8 MB, Process RSS: 101.2 MB
+[DATA LOADED] DB Vectors: (50000, 4096), Attributes: 50000, Queries: 25
+              Load elapsed: 0.72s
+[META INDEX] Constructed in 0.110s for 50000 docs
+[HNSW BUILD] Constructing graph on 50,000 vectors (M=16, efC=50)...
+[HNSW COMPLETE] Build Time: 546.96s (9.12 min)
+                Post-Build RSS: 882.1 MB (Delta: 780.8 MB)
+                Graph Stats: Enter Point = 2902, Max Layer = 4
+[INDEX SAVED] hnsw_index_50k.pkl (786.61 MB)
+[SMOKE TEST] Running 5-query validation check...
+  Q0: Cand Count = 12830, GT = 10, InGraph Recall@10 = 0.80
+  Q1: Cand Count = 12830, GT = 10, InGraph Recall@10 = 0.90
+  Q2: Cand Count = 12830, GT = 10, InGraph Recall@10 = 1.00
+  Q3: Cand Count = 32029, GT = 10, InGraph Recall@10 = 1.00
+  Q4: Cand Count = 32029, GT = 10, InGraph Recall@10 = 1.00
+[SMOKE TEST PASSED] 100% Predicate compliance verified.
+[BENCHMARK] Evaluating 25 queries x 3 workloads x 5 methods...
+[BENCHMARK COMPLETE] 375 queries executed in 28.41s
+[RESOURCE STATS] Peak RSS: 1023.2 MB, Free System RAM Remaining: 897.7 MB
+
+==========================================================================================
+SUMMARY FOR CHECKPOINT N = 50,000
+==========================================================================================
+AdaptiveRouter_2pct  EM       Recall: 0.9440   Latency: 28.72   ms (P95: 91.64   ms) QPS: 34.8  
+AdaptiveRouter_2pct  EMIS     Recall: 0.9520   Latency: 92.87   ms (P95: 320.12  ms) QPS: 10.8  
+AdaptiveRouter_2pct  Range    Recall: 0.9520   Latency: 42.19   ms (P95: 109.38  ms) QPS: 23.7  
+ExactSearch          EM       Recall: 1.0000   Latency: 167.08  ms (P95: 349.14  ms) QPS: 6.0   
+ExactSearch          EMIS     Recall: 1.0000   Latency: 49.46   ms (P95: 116.74  ms) QPS: 20.2  
+ExactSearch          Range    Recall: 1.0000   Latency: 125.51  ms (P95: 396.97  ms) QPS: 8.0   
+HNSW_PostFilter      EM       Recall: 0.3400   Latency: 8.14    ms (P95: 12.53   ms) QPS: 122.8 
+HNSW_PostFilter      EMIS     Recall: 0.2960   Latency: 7.41    ms (P95: 9.63    ms) QPS: 134.9 
+HNSW_PostFilter      Range    Recall: 0.1400   Latency: 9.01    ms (P95: 12.80   ms) QPS: 110.9 
+InGraphFilter        EM       Recall: 0.9440   Latency: 30.80   ms (P95: 100.02  ms) QPS: 32.5  
+InGraphFilter        EMIS     Recall: 0.9440   Latency: 108.40  ms (P95: 319.02  ms) QPS: 9.2   
+InGraphFilter        Range    Recall: 0.9400   Latency: 126.99  ms (P95: 298.90  ms) QPS: 7.9   
+PreFilter            EM       Recall: 1.0000   Latency: 159.52  ms (P95: 315.61  ms) QPS: 6.3   
+PreFilter            EMIS     Recall: 1.0000   Latency: 49.88   ms (P95: 121.65  ms) QPS: 20.0  
+PreFilter            Range    Recall: 1.0000   Latency: 127.55  ms (P95: 439.87  ms) QPS: 7.8   
+==========================================================================================

@@ -1,0 +1,88 @@
+================================================================================
+ARXIV-LARGE FANNS 500K SCALING CHECKPOINT EXECUTION LOG
+Timestamp: 2026-10-24 23:51:00
+Host: AMD Ryzen 3 5300U (4 Cores / 8 Threads @ 2.60 GHz), Windows 11 Home
+================================================================================
+
+[PHASE 1: PREFLIGHT SYSTEMS INSPECTION]
+Timestamp: 2026-10-24 23:51:15
+[RESOURCES] Physical RAM Total: 7,502.1 MB (7.33 GB)
+[RESOURCES] Physical RAM Available: 1,791.9 MB (1.75 GB)
+[RESOURCES] Physical RAM Used: 5,580.0 MB (76.1%)
+[RESOURCES] Windows Pagefile (C:\pagefile.sys) Total: 8,192.0 MB (8.00 GB)
+[RESOURCES] Windows Pagefile Used: 564.3 MB (6.9%), Free: 7,627.7 MB
+[RESOURCES] Total Virtual Memory Commit Limit: 15,694.1 MB (15.33 GB)
+[RESOURCES] Current Virtual Memory Commit Used: 6,134.3 MB (39.1%)
+[RESOURCES] Free Disk Space (C:): 273.76 GB (Total: 475.74 GB)
+
+[ACTIVE PROCESS AUDIT]
+MemCompression (PID 3796): 682.9 MB
+chrome.exe (PID 1612): 494.1 MB
+brave.exe (PID 6648): 361.1 MB
+Antigravity IDE.exe (PID 17152): 310.7 MB
+chrome.exe (PID 15792): 240.8 MB
+MsMpEng.exe (PID 5744): 191.4 MB
+language_server (PID 1532): 184.1 MB
+chrome.exe (PID 14076): 171.5 MB
+PhoneExperienceHost (PID 15788): 135.3 MB
+Antigravity IDE.exe (PID 17976): 131.1 MB
+
+[DATASET AUDIT]
+Dataset: SPCL/arxiv-for-fanns-large
+Dimension: 4096 (float32, 16,388 bytes/record)
+Target Checkpoint: N = 500,000 vectors
+Raw Vector File Size: 500,000 * 16,388 = 8,194,000,000 bytes (8,194.0 MB / 7.63 GiB)
+Metadata Attributes Size: 500,000 lines JSONL = ~188 MB
+Integrity Check on Existing Scaling Prefix: Passed (NaNs: False, Infs: False, Unit Norms: True)
+Query Attributes Available: EM (50), Range (50), EMIS (50)
+
+[IMPLEMENTATION CODE AUDIT: HNSWIndex]
+Code Source: filtered-ann-research-medium/src/hnsw_index.py
+Vector Storage: Memory-mapped via numpy.memmap (no eager full copy in set_vectors)
+Norms Storage: Float32 array (2 MB), computed in 5,000-vector chunks (82 MB temporary buffer)
+Graph Topology: List[Dict[int, List[int]]] (pure Python objects)
+Edges: ~16,000,000 directed edges at N=500,000
+Pruning Allocation: Allocates temporary np.array and converts to Python list via .tolist()
+
+[EMPIRICAL RESOURCE MODELING]
+Calibrated Baseline:
+  - 10K: Build=118.33s, Peak RSS=294.93MB
+  - 25K: Build=242.81s, Peak RSS=458.09MB
+  - 50K: Build=546.96s, Peak RSS=1023.21MB
+  - 100K: Build=670.08s, Peak RSS=1720.00MB (Available RAM dropped to 514MB)
+Marginal RSS Growth: 13.936 KB per vector
+500K Projected Graph RSS: 1,720.0 MB + (400,000 * 13.936 KB) = 7,294.4 MB (7.12 GB)
+500K Projected Serialized Index: 7,874.5 MB (7.69 GB)
+500K Clean Build Time (O(N log N)): 3,819 s (63.7 min clean; >15-20 hours if thrashing)
+500K Active Working Set: Graph (7.29 GB) + Mmap Vector Pages (up to 8.19 GB) = ~12.5 GB to 15.4 GB
+
+[MANDATORY SAFETY GATE EVALUATION]
+Safety Threshold 1 (Physical RAM Reserve >= 1,000 MB):
+  - Available RAM: 1,791.9 MB
+  - Estimated Process RSS: 7,294.4 MB
+  - Deficit: 5,502.5 MB shortfall in physical memory -> BREACHED (FAIL)
+
+Safety Threshold 2 (System Commit Usage <= 85% = 13,340 MB):
+  - Current System Commit: 6,134.3 MB
+  - Peak Commit Demand: 6,134.3 + 7,294.4 = 13,428.7 MB (85.6% to 90.4% of 15.33 GB limit)
+  - Remaining Commit Headroom: < 1.9 GB -> BREACHED (FAIL)
+
+Safety Threshold 3 (Paging / Disk Thrashing Prevention):
+  - At least 5.5 GB of active graph working set must be continuously paged out to C:\pagefile.sys
+  - Random graph hops and distance evaluations during beam search will trigger hard page faults
+  - Expected execution slowdown: 1,000x latency penalty, causing severe OS freeze -> BREACHED (FAIL)
+
+Safety Threshold 4 (Free Disk Space >= 30 GB):
+  - Free Disk Space: 273.76 GB -> SATISFIED (PASS)
+
+[FINAL SAFETY GATE VERDICT]
+================================================================================
+SAFETY GATE STATUS: FAILED (3 OUT OF 4 SAFETY CRITERIA BREACHED)
+ACTION: HALTING EXPERIMENT BEFORE INDEX CONSTRUCTION
+STATUS CODE: STOPPED — RESOURCE SAFETY LIMIT
+================================================================================
+Reason: Process resident memory (7.29 GB) exceeds available physical RAM (1.75 GB) by 4.1x;
+total commit approaches 90% of host capacity; continuous NVMe SSD thrashing guaranteed.
+The 100K benchmark artifacts remain intact and validated.
+All 500K safety records written under research_audit/arxiv_large_scaling/500k/.
+================================================================================

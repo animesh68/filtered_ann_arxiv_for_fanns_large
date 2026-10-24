@@ -1,0 +1,73 @@
+{
+  "scaling_validation_passed": true,
+  "evaluated_checkpoint_sizes": [
+    25000,
+    50000
+  ],
+  "checks": {
+    "check1_record_counts": {
+      "passed": true,
+      "records_per_size": {
+        "25000": 375,
+        "50000": 375
+      }
+    },
+    "check2_consistent_query_ids": {
+      "passed": true
+    },
+    "check3_predicate_compliance": {
+      "passed": true,
+      "violations": 0
+    },
+    "check4_recall_fidelity": {
+      "passed": true
+    },
+    "check5_latency_finite": {
+      "passed": true
+    },
+    "check6_index_build_separated": {
+      "passed": true
+    },
+    "check7_zero_errors": {
+      "passed": true
+    },
+    "check8_summary_recomputable": {
+      "passed": true
+    },
+    "check9_resource_measurements": {
+      "passed": true
+    },
+    "check10_subset_distinction": {
+      "passed": true
+    },
+    "check11_prior_research_intact": {
+      "passed": true
+    }
+  },
+  "checkpoint_metrics": [
+    {
+      "dataset_size": 25000,
+      "raw_vector_file_mb": 390.7203674316406,
+      "index_build_time_s": 242.81053185462952,
+      "index_file_size_mb": 393.30212211608887,
+      "peak_rss_mb": 458.0859375,
+      "ram_delta_mb": 356.40234375,
+      "free_ram_start_mb": 712.8359375,
+      "free_ram_end_mb": 743.3984375,
+      "query_benchmark_time_s": 17.51266384124756,
+      "num_queries": 375
+    },
+    {
+      "dataset_size": 50000,
+      "raw_vector_file_mb": 781.4407348632812,
+      "index_build_time_s": 546.9642457962036,
+      "index_file_size_mb": 786.6131896972656,
+      "peak_rss_mb": 1023.21484375,
+      "ram_delta_mb": 921.9921875,
+      "free_ram_start_mb": 1310.8046875,
+      "free_ram_end_mb": 897.70703125,
+      "query_benchmark_time_s": 28.413392066955566,
+      "num_queries": 375
+    }
+  ]
+}

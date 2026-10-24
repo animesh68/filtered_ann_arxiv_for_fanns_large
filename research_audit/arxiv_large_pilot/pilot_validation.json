@@ -1,0 +1,54 @@
+{
+  "validation_passed": true,
+  "checks": {
+    "check1_completed_queries_per_method": {
+      "passed": true,
+      "counts": {
+        "AdaptiveRouter_2pct": 150,
+        "ExactSearch": 150,
+        "HNSW_PostFilter": 150,
+        "InGraphFilter": 150,
+        "PreFilter": 150
+      }
+    },
+    "check2_identical_query_ids": {
+      "passed": true,
+      "query_count": 50
+    },
+    "check3_recall_fidelity": {
+      "passed": true,
+      "exact_recall": 1.0,
+      "prefilter_recall": 1.0
+    },
+    "check4_predicate_compliance": {
+      "passed": true,
+      "violations": 0
+    },
+    "check5_latency_finite": {
+      "passed": true
+    },
+    "check6_index_build_separated": {
+      "passed": true,
+      "build_time_s": 118.33459997177124
+    },
+    "check7_zero_errors_timeouts": {
+      "passed": true
+    },
+    "check8_summary_recomputable": {
+      "passed": true
+    },
+    "check9_mmap_verified": {
+      "passed": true
+    },
+    "check10_subset_pilot_distinguished": {
+      "passed": true,
+      "subset_size": 10000,
+      "full_size": 2735264
+    }
+  },
+  "system_metrics": {
+    "peak_rss_mb": 294.92578125,
+    "index_build_time_s": 118.33459997177124,
+    "benchmark_time_s": 24.68934202194214
+  }
+}

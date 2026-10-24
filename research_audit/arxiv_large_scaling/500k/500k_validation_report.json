@@ -1,0 +1,62 @@
+{
+  "checkpoint": "500K",
+  "status": "STOPPED \u2014 RESOURCE SAFETY LIMIT",
+  "preflight_checks": {
+    "hardware_inspection": {
+      "passed": true,
+      "physical_ram_mb": 7502.1,
+      "available_ram_mb": 857.9,
+      "pagefile_mb": 8192.0,
+      "total_commit_limit_mb": 15694.1,
+      "drive_c_free_gb": 273.76
+    },
+    "dataset_integrity": {
+      "passed": true,
+      "dimensions": 4096,
+      "dtype": "float32",
+      "record_bytes": 16388,
+      "raw_vectors_required_bytes": 8194000000,
+      "nans_found": false,
+      "infs_found": false,
+      "unit_normalized": true
+    },
+    "implementation_inspection": {
+      "passed": true,
+      "engine": "Python HNSWIndex",
+      "vector_mapping": "numpy.memmap",
+      "graph_structure": "List[Dict[int, List[int]]]",
+      "per_node_allocations": "Python list and int objects",
+      "temporary_arrays": "np.array during neighbor updates"
+    },
+    "safety_gate_evaluation": {
+      "passed": false,
+      "verdict": "STOPPED_RESOURCE_SAFETY_LIMIT",
+      "reasons": [
+        "Projected process RSS (7,294 MB) exceeds available physical RAM (1,791 MB) by 4.07x",
+        "Total system commit approaches 90% of commit limit (15.33 GB)",
+        "Forcing >5.5 GB of active working set into SSD pagefile guarantees severe disk thrashing"
+      ],
+      "abort_thresholds": {
+        "ram_reserve_breached": true,
+        "commit_limit_breached": true,
+        "thrashing_risk_breached": true,
+        "disk_space_breached": false
+      }
+    }
+  },
+  "prior_artifacts_intact": {
+    "scaling_raw_results_updated_rows": 1500,
+    "scaling_summary_updated_rows": 60,
+    "resource_measurements_updated_checkpoints": 4,
+    "hnsw_index_100k_bytes": 1651228526,
+    "verified_untouched": true
+  },
+  "reproducibility": {
+    "dataset_repo": "SPCL/arxiv-for-fanns-large",
+    "random_seed": 42,
+    "M": 16,
+    "ef_construction": 50,
+    "ef_search": 50,
+    "k": 10
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "scaling_validation_passed": true,
+  "evaluated_checkpoint_sizes": [
+    10000,
+    25000,
+    50000,
+    100000
+  ],
+  "total_evaluated_records": 1500,
+  "checks": {
+    "check1_record_counts": {
+      "passed": true,
+      "records_per_size": {
+        "10000": 375,
+        "25000": 375,
+        "50000": 375,
+        "100000": 375
+      }
+    },
+    "check2_consistent_query_ids": {
+      "passed": true
+    },
+    "check3_predicate_compliance": {
+      "passed": true,
+      "violations": 0
+    },
+    "check4_recall_fidelity": {
+      "passed": true
+    },
+    "check5_latency_finite": {
+      "passed": true
+    },
+    "check6_index_build_separated": {
+      "passed": true
+    },
+    "check7_zero_errors": {
+      "passed": true
+    },
+    "check8_summary_recomputable": {
+      "passed": true
+    },
+    "check9_resource_measurements": {
+      "passed": true
+    },
+    "check10_subset_distinction": {
+      "passed": true
+    },
+    "check11_prior_research_intact": {
+      "passed": true
+    },
+    "check12_router_dispatch_mechanics": {
+      "passed": true,
+      "violations": 0
+    }
+  },
+  "checkpoint_metrics": [
+    {
+      "dataset_size": 10000,
+      "raw_vector_file_mb": 163.88,
+      "index_build_time_s": 118.33,
+      "index_file_size_mb": 157.32,
+      "peak_rss_mb": 294.93,
+      "ram_delta_mb": 156.2,
+      "free_ram_start_mb": 1510.0,
+      "free_ram_end_mb": 1450.0,
+      "query_benchmark_time_s": 24.69,
+      "num_queries": 750
+    },
+    {
+      "dataset_size": 25000,
+      "raw_vector_file_mb": 390.7203674316406,
+      "index_build_time_s": 242.81053185462952,
+      "index_file_size_mb": 393.30212211608887,
+      "peak_rss_mb": 458.0859375,
+      "ram_delta_mb": 356.40234375,
+      "free_ram_start_mb": 712.8359375,
+      "free_ram_end_mb": 743.3984375,
+      "query_benchmark_time_s": 17.51266384124756,
+      "num_queries": 375
+    },
+    {
+      "dataset_size": 50000,
+      "raw_vector_file_mb": 781.4407348632812,
+      "index_build_time_s": 546.9642457962036,
+      "index_file_size_mb": 786.6131896972656,
+      "peak_rss_mb": 1023.21484375,
+      "ram_delta_mb": 921.9921875,
+      "free_ram_start_mb": 1310.8046875,
+      "free_ram_end_mb": 897.70703125,
+      "query_benchmark_time_s": 28.413392066955566,
+      "num_queries": 375
+    },
+    {
+      "dataset_size": 100000,
+      "raw_vector_file_mb": 1562.8814697265625,
+      "index_build_time_s": 670.0804388523102,
+      "index_file_size_mb": 1574.7342357635498,
+      "peak_rss_mb": 1719.99609375,
+      "ram_delta_mb": 1618.375,
+      "free_ram_start_mb": 1029.0859375,
+      "free_ram_end_mb": 514.03125,
+      "query_benchmark_time_s": 38.893279790878296,
+      "num_queries": 375
+    }
+  ]
+}
